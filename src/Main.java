@@ -1,6 +1,4 @@
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,12 +8,27 @@ public class Main {
         read_input();
 
         TimeMock timeMock = new TimeMock(tasks);
+        Scheduler scheduler = new Scheduler(timeMock);
+        scheduler.run();
+
+        System.out.print("\n");
+        int index = 0;
+        for (Task task: tasks ) {
+            task.printWaitTime();
+            if(index < tasks.size() - 1)
+                System.out.print(",");
+            index++;
+        }
     }
 
     private static void read_input(){
         Scanner scanner = new Scanner(System.in);
-        while(!scanner.nextLine().isEmpty()){
-            String[] data=scanner.nextLine().split(",");
+        while(scanner.hasNextLine()){
+            String line = scanner.nextLine();
+            if(line.isEmpty())
+                break;
+
+            String[] data=line.split(",");
 
             if(data.length != 4)
                 throw new IllegalArgumentException("Input should be 4 values delimited by ','");

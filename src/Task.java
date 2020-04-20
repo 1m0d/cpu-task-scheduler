@@ -5,8 +5,8 @@ public class Task {
     private Priority priority;
     private int arrival_time;
     private int burst;
+    private int waitTime = 0;
 
-    public char get_pid() { return pid; }
     public Priority get_priority() { return priority; }
     public int get_arrival_time() { return arrival_time; }
     public int get_burst() { return burst; }
@@ -25,15 +25,22 @@ public class Task {
         if(burst < 1)
             throw new IllegalArgumentException( String.format("Invalid burst value, has to be >= 1, got: %d", burst));
 
-        this.pid = Character.toLowerCase(pid);
+        this.pid = pid;
         this.arrival_time = arrival_time;
         this.burst = burst;
     }
+
+    public void pause(){ waitTime++; }
 
     public void run_task(){
         if(burst <= 0)
             throw new IllegalStateException("Task has already finished running");
 
         burst -= 1;
+        System.out.print(pid);
+    }
+
+    public void printWaitTime(){
+        System.out.printf("%c:%d",pid,waitTime);
     }
 }

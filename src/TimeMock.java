@@ -17,6 +17,8 @@ public class TimeMock {
     }
 
     public ArrayList<Task> elapseTime(){
+        if(timeFrames.length == timeNow)
+            return null;
         return timeFrames[timeNow++];
     }
 
