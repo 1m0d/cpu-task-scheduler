@@ -11,7 +11,7 @@ public class Task {
     public int get_arrival_time() { return arrival_time; }
     public int get_burst() { return burst; }
 
-    public Task(char pid, byte priority, int arrival_time, int burst) {
+    public Task(char pid, int priority, int arrival_time, int burst) {
         if(priority == 0)
             this.priority = Priority.HIGH;
         else if(priority == 1)
