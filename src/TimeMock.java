@@ -3,7 +3,7 @@ public class TimeMock {
     private ArrayList<Task>[] timeFrames;
     private int timeNow = 0;
 
-    public TimeMock(Task[] tasks){
+    public TimeMock(ArrayList<Task> tasks){
         timeFrames = new ArrayList[calculateFrameCount(tasks) + 1];
 
         for(Task task : tasks){
@@ -20,7 +20,7 @@ public class TimeMock {
         return timeFrames[timeNow++];
     }
 
-    private int calculateFrameCount(Task[] tasks){
+    private int calculateFrameCount(ArrayList<Task> tasks){
         int maxArrivalTime = 0;
         for(Task task : tasks){
             if(task.get_arrival_time() > maxArrivalTime)
