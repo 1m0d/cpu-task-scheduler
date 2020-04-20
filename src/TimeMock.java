@@ -1,23 +1,22 @@
-import java.util.LinkedList;
-
+import java.util.ArrayList;
 public class TimeMock {
-    private LinkedList<Task>[] timeFrames;
+    private ArrayList<Task>[] timeFrames;
     private int timeNow = 0;
 
     public TimeMock(Task[] tasks){
-        timeFrames = new LinkedList[calculateFrameCount(tasks) + 1];
+        timeFrames = new ArrayList[calculateFrameCount(tasks) + 1];
 
         for(Task task : tasks){
             int arrival_time = task.get_arrival_time();
 
             if (timeFrames[arrival_time] == null)
-                timeFrames[arrival_time] = new LinkedList<Task>();
+                timeFrames[arrival_time] = new ArrayList<Task>();
 
             timeFrames[arrival_time].add(task);
         }
     }
 
-    public LinkedList<Task> elapseTime(){
+    public ArrayList<Task> elapseTime(){
         return timeFrames[timeNow++];
     }
 
