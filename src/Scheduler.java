@@ -7,7 +7,7 @@ public class Scheduler {
   TimeMock timeMock;
   PriorityQueue<Task> sRTF = new PriorityQueue<>(new SRTFComparator());
   LinkedList<Task> roundRobin = new LinkedList<>();
-  int roundRobinCountdown;
+  int roundRobinCountdown = 2;
   boolean sRTFRunning = false;
   Task runningTask;
 
@@ -37,15 +37,15 @@ public class Scheduler {
         if (runningTask == null) {
           runningTask = roundRobin.pollFirst();
           runningTask.printPID();
+          roundRobinCountdown = 2;
         }
         // There is a running low priority task which has run for 2 time frames
-        else if (roundRobinCountdown == 0 && !sRTFRunning) {
+        else if (roundRobinCountdown <= 0 && !sRTFRunning) {
           roundRobin.add(runningTask);
           runningTask = roundRobin.pollFirst();
           runningTask.printPID();
           roundRobinCountdown = 2;
         }
-        roundRobinCountdown--;
       }
       // SRTF
       else if (!sRTF.isEmpty() && !sRTFRunning) {
@@ -60,6 +60,13 @@ public class Scheduler {
 
       if(runningTask != null) {
         runningTask.run_task();
+
+        if(!sRTFRunning) {
+          // reset round robin countdown if round robin task running, and no other task was in que
+          if(roundRobinCountdown == 0)
+            roundRobinCountdown = 2;
+          roundRobinCountdown--;
+        }
 
         if (runningTask.get_burst() <= 0) {
           runningTask = null;
