@@ -35,8 +35,7 @@ public class Scheduler {
       if (sRTF.isEmpty() && !roundRobin.isEmpty()) {
         // There is no running task
         if (runningTask == null) {
-          Task task = roundRobin.pollFirst();
-          runningTask = task;
+          runningTask = roundRobin.pollFirst();
           runningTask.printPID();
         }
         // There is a running low priority task which has run for 2 time frames
