@@ -30,6 +30,8 @@ public class Task {
         this.burst = burst;
     }
 
+    public char getPid() { return pid; }
+
     public void pause(){ waitTime++; }
 
     public void run_task(){
@@ -37,10 +39,10 @@ public class Task {
             throw new IllegalStateException("Task has already finished running");
 
         burst -= 1;
-        System.out.print(pid);
     }
 
     public void printWaitTime(){
         System.out.printf("%c:%d",pid,waitTime);
     }
+    public void printPID(){ System.out.print(pid); }
 }

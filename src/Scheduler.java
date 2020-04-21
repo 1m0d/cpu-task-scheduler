@@ -32,22 +32,29 @@ public class Scheduler {
             }
 
             // Round Robin
-            if (sRTF.isEmpty()) {
+            if (sRTF.isEmpty() && !roundRobin.isEmpty()) {
+                // There is no running task
                 if (runningTask == null) {
                     Task task = roundRobin.pollFirst();
                     runningTask = task;
-                    roundRobinCountdown--;
-                } else if (roundRobinCountdown == 0 && !sRTFRunning) {
+                    runningTask.printPID();
+                }
+                // There is a running low priority task which has run for 2 time frames
+                else if (roundRobinCountdown == 0 && !sRTFRunning) {
                     roundRobin.add(runningTask);
                     runningTask = roundRobin.pollFirst();
+                    runningTask.printPID();
                     roundRobinCountdown = 2;
                 }
+                roundRobinCountdown--;
             }
             // SRTF
             else if (!sRTF.isEmpty() && !sRTFRunning) {
+                // Low priority task running, stop it and put it back in que
                 if(runningTask != null)
                     roundRobin.add(runningTask);
                 runningTask = sRTF.poll();
+                runningTask.printPID();
                 sRTFRunning = true;
             }
 
