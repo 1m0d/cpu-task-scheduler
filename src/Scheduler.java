@@ -19,7 +19,7 @@ public class Scheduler {
         while(true) {
             ArrayList<Task> tasks = timeMock.elapseTime();
 
-            if (tasks == null && sRTF.isEmpty() && roundRobin.isEmpty() && runningTask == null)
+            if (tasks == null && sRTF.isEmpty() && roundRobin.isEmpty() && !timeMock.getHasMoreData())
                 break;
 
             if (tasks != null) {

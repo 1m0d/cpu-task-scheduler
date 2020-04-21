@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class TimeMock {
     private ArrayList<Task>[] timeFrames;
     private int timeNow = 0;
+    private boolean hasMoreData = true;
 
     public TimeMock(ArrayList<Task> tasks){
         timeFrames = new ArrayList[calculateFrameCount(tasks) + 1];
@@ -16,9 +17,14 @@ public class TimeMock {
         }
     }
 
+    public boolean getHasMoreData(){ return hasMoreData; }
+
     public ArrayList<Task> elapseTime(){
-        if(timeFrames.length == timeNow)
+        if(timeFrames.length == timeNow) {
+            hasMoreData = false;
             return null;
+        }
+
         return timeFrames[timeNow++];
     }
 
