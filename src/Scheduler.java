@@ -59,21 +59,18 @@ public class Scheduler {
             }
 
 
-            if(runningTask != null)
+            if(runningTask != null) {
                 runningTask.run_task();
 
-            if (runningTask.get_burst() <= 0) {
-                runningTask = null;
-                sRTFRunning = false;
+                if (runningTask.get_burst() <= 0) {
+                    runningTask = null;
+                    sRTFRunning = false;
+                }
             }
 
-            for (Task task: roundRobin ) {
-                task.pause();
-            }
-
-            for (Task task: sRTF ) {
-                task.pause();
-            }
+            // Count wait time
+            for (Task task: roundRobin ) { task.pause(); }
+            for (Task task: sRTF ) { task.pause(); }
         }
     }
 
