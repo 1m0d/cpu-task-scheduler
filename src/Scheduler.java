@@ -48,15 +48,27 @@ public class Scheduler {
         }
       }
       // SRTF
-      else if (!sRTF.isEmpty() && !sRTFRunning) {
+      else if (!sRTF.isEmpty()) {
         // Low priority task running, stop it and put it back in que
-        if(runningTask != null)
+        if(runningTask != null && !sRTFRunning)
           roundRobin.add(runningTask);
-        runningTask = sRTF.poll();
-        runningTask.printPID();
+
+        // put back in que running task if burst time bigger than in que
+        if(sRTFRunning){
+          if(runningTask.get_burst() > sRTF.peek().get_burst()){
+            sRTF.add(runningTask);
+            runningTask = sRTF.poll();
+            runningTask.printPID();
+          }
+        }
+        // no high priority task running
+        else {
+          runningTask = sRTF.poll();
+          runningTask.printPID();
+        }
+
         sRTFRunning = true;
       }
-
 
       if(runningTask != null) {
         runningTask.run_task();

@@ -39,10 +39,14 @@ public class Task {
       throw new IllegalStateException("Task has already finished running");
 
     burst -= 1;
+    // Uncomment to show process run by time frame
+    // System.out.print(pid);
   }
 
   public void printWaitTime(){
     System.out.printf("%c:%d",pid,waitTime);
   }
-  public void printPID(){ System.out.print(pid); }
+  public void printPID(){
+   System.out.print(pid);
+  }
 }
