@@ -74,13 +74,17 @@ public class Scheduler {
         }
     }
 
+    // shorter burst time, or alphabetical order decides for higher priority
     class SRTFComparator implements Comparator<Task> {
         public int compare(Task t1, Task t2) {
             if (t1.get_burst() < t2.get_burst())
-                return 1;
-            else if (t1.get_burst() > t2.get_burst())
                 return -1;
-            return 0;
+            else if (t1.get_burst() > t2.get_burst())
+                return 1;
+            else if(t1.getPid() < t2.getPid())
+                return -1;
+            else
+                return 1;
         }
     }
 }
